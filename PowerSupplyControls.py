@@ -381,7 +381,7 @@ class ObelixPower:
         self.socket.settimeout(timeout)
         self.connect()
         try:
-                self.gpib = gpibControl(gpib_ip,14)
+            self.gpib = gpibControl(gpib_ip,14)
         except:
             self.gpib = None
 
@@ -447,6 +447,14 @@ class ObelixPower:
         v=self.query(f"V{channel}?")[3:-2]
         i=self.query(f"I{channel}?")[3:-2]
         return float(v),float(i)
+
+    def SetVoltage(self, voltage, channel=1):
+        if float(voltage)<=1.5 and float(voltage) >= 0.6:
+            self.write(f"V{channel} {voltage}")
+            return True
+        else:
+            print(f'Selected voltage ({voltage}) outside of defined safe range 0.6-1.5')
+            return False
 
     def SetLimits(self, voltage, current,channel=1):
         if voltage >= 0.6 and voltage<=1.5:
