@@ -25,6 +25,7 @@ class PrologixGPIBEthernet:
         self.socket = socket.socket(socket.AF_INET,
                                     socket.SOCK_STREAM,
                                     socket.IPPROTO_TCP)
+        self.set_timeout(self.timeout)
         self.socket.connect((self.host, self.PORT))
 
     def close(self):
