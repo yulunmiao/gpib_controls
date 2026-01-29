@@ -24,13 +24,12 @@ if __name__=='__main__':
     parser.add_argument('--logName', default='logFile.log', help='log name')
     parser.add_argument('--time', default=15, type=float,help='Frequency (in seconds) of how often to read the power')
     parser.add_argument('--ip', default='192.168.1.50', help='IP Address of the gpib controller')
-    parser.add_argument('--addr', default=8, type=int, choices=[4,6,8],help='GPIB address of the power supply')
+    parser.add_argument('--addr', default=8, type=int, choices=[3,4,6,8],help='GPIB address of the power supply')
     parser.add_argument('--board', default=46, type=int, help='Board number of hexacontroller (used to determing which power supply to control)')
 
     args = parser.parse_args()
 
     ps=getPowerSupply(args.ip,args.addr)
-
     if args.On:
         ps.SetLimits_2(v=0,i=0.6)
         if args.setVoltage is None:
